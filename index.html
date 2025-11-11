@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Clinic — Smart Care Demo</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div id="app" class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="https://images.unsplash.com/photo-1580281657521-7b8f8a3b6b8b?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=3d88ba0b1a6be2dcc3debb4bd3b7c60a" alt="AI Clinic">
+        <div>
+          <h1>AI Clinic</h1>
+          <p class="muted small">Smart Care — Demo</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-btn active" data-target="home"><span class="ico">🏠</span><span>Home</span></button>
+        <button class="nav-btn" data-target="symptom"><span class="ico">🤖</span><span>Symptom</span></button>
+        <button class="nav-btn" data-target="appointment"><span class="ico">📅</span><span>Appointments</span></button>
+        <button class="nav-btn" data-target="dashboard"><span class="ico">📊</span><span>Dashboard</span></button>
+        <button class="nav-btn" data-target="bmi"><span class="ico">⚖️</span><span>BMI</span></button>
+        <button class="nav-btn" data-target="reminder"><span class="ico">💊</span><span>Reminders</span></button>
+        <button class="nav-btn" data-target="chat"><span class="ico">💬</span><span>Chatbot</span></button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="muted small">Theme</div>
+        <label class="switch">
+          <input id="themeToggle" type="checkbox" />
+          <span class="slider"></span>
+        </label>
+        <div class="muted tiny">© 2025 AI Clinic</div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- HOME -->
+      <section id="home" class="page active">
+        <div class="card hero">
+          <div class="hero-left">
+            <h2>Care that understands you.</h2>
+            <p class="lead">AI Clinic demo: analyze symptoms, book appointments, track vitals and interact with a mock AI chatbot — all frontend-only.</p>
+            <div class="cta">
+              <button class="btn primary" data-open="symptom">Try Symptom Checker</button>
+              <button class="btn ghost" data-open="appointment">Book Appointment</button>
+            </div>
+
+            <div class="quick-stats">
+              <div class="stat">
+                <div class="num">24k+</div>
+                <div class="muted">Checks</div>
+              </div>
+              <div class="stat">
+                <div class="num">1.6k</div>
+                <div class="muted">Bookings</div>
+              </div>
+              <div class="stat">
+                <div class="num">98%</div>
+                <div class="muted">UI Score</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-right">
+            <img class="hero-img" src="https://images.unsplash.com/photo-1586788245552-6a2bdc5de8bf?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=6f2d4ce2f2a4b02d2b9d9f1a5e6d8d6b" alt="AI Health">
+          </div>
+        </div>
+
+        <div class="grid-three spacer">
+          <div class="card">
+            <h3>Smart Symptom Analysis</h3>
+            <p class="muted">Client-side rules + UI to simulate intelligent responses and confidence scores.</p>
+          </div>
+          <div class="card">
+            <h3>Quick Booking</h3>
+            <p class="muted">Save appointments to browser storage — ideal for live demos and judge testing.</p>
+          </div>
+          <div class="card">
+            <h3>Visual Dashboard</h3>
+            <p class="muted">Charts show mock vitals & activity. Responsive and interactive.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SYMPTOM -->
+      <section id="symptom" class="page">
+        <div class="card form-card">
+          <h2>Symptom Checker</h2>
+          <p class="muted">Type symptoms or paste a short description. This is a demo-only rule-based assistant.</p>
+
+          <textarea id="symptomInput" placeholder="e.g. fever, sore throat, headache..." class="text-input"></textarea>
+
+          <div class="row">
+            <button id="symptomBtn" class="btn primary">Analyze</button>
+            <div id="symptomLoader" class="loader hidden"></div>
+            <div id="symptomResult" class="result"></div>
+          </div>
+          <div class="muted small">Tip: Use terms like "fever", "chest pain", "shortness of breath".</div>
+        </div>
+      </section>
+
+      <!-- APPOINTMENT -->
+      <section id="appointment" class="page">
+        <div class="card form-card">
+          <h2>Book Appointment</h2>
+          <p class="muted">This stores sample appointments locally in your browser.</p>
+
+          <form id="appointmentForm" class="form-grid">
+            <label class="field">
+              <span class="label">Full name</span>
+              <input type="text" id="patientName" placeholder="Your name" required>
+            </label>
+
+            <label class="field">
+              <span class="label">Doctor</span>
+              <select id="doctorSelect" required>
+                <option value="">Choose</option>
+                <option>Dr. Meera — Cardiologist</option>
+                <option>Dr. Anil — Dermatologist</option>
+                <option>Dr. Ravi — General Physician</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span class="label">Date</span>
+              <input type="date" id="appointmentDate" required>
+            </label>
+
+            <label class="field">
+              <span class="label">Notes</span>
+              <input type="text" id="appointmentNotes" placeholder="Optional notes">
+            </label>
+
+            <div class="actions">
+              <button class="btn primary" type="submit">Save Appointment</button>
+              <button class="btn ghost" type="button" id="clearAppointments">Clear All</button>
+            </div>
+          </form>
+
+          <div id="appointmentList" class="appointments muted">
+            <!-- injected -->
+          </div>
+        </div>
+      </section>
+
+      <!-- DASHBOARD -->
+      <section id="dashboard" class="page">
+        <div class="card">
+          <h2>Health Dashboard</h2>
+          <p class="muted">Mock vitals & activity trends (for demo only).</p>
+
+          <div class="chart-wrap">
+            <canvas id="healthChart" width="800" height="320"></canvas>
+          </div>
+
+          <div class="grid-two spacer">
+            <div class="card small">
+              <h4>Latest Heart Rate</h4>
+              <div class="big">76 <span class="muted small">bpm</span></div>
+            </div>
+            <div class="card small">
+              <h4>Today's Steps</h4>
+              <div class="big">6,200 <span class="muted small">steps</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BMI -->
+      <section id="bmi" class="page">
+        <div class="card form-card">
+          <h2>BMI Calculator</h2>
+          <p class="muted">Quick BMI check.</p>
+
+          <div class="form-grid">
+            <label class="field small">
+              <span class="label">Height (cm)</span>
+              <input type="number" id="height" placeholder="e.g. 170">
+            </label>
+
+            <label class="field small">
+              <span class="label">Weight (kg)</span>
+              <input type="number" id="weight" placeholder="e.g. 65">
+            </label>
+
+            <div class="actions">
+              <button id="bmiBtn" class="btn primary">Calculate</button>
+            </div>
+          </div>
+
+          <div id="bmiResult" class="result muted"></div>
+        </div>
+      </section>
+
+      <!-- REMINDER -->
+      <section id="reminder" class="page">
+        <div class="card form-card">
+          <h2>Medicine Reminders</h2>
+          <p class="muted">Set reminders (stored locally).</p>
+
+          <form id="reminderForm" class="form-grid">
+            <label class="field">
+              <span class="label">Medicine</span>
+              <input id="medName" type="text" required placeholder="e.g. Paracetamol">
+            </label>
+
+            <label class="field">
+              <span class="label">Time</span>
+              <input id="medTime" type="time" required>
+            </label>
+
+            <div class="actions">
+              <button class="btn primary" type="submit">Add Reminder</button>
+            </div>
+          </form>
+
+          <ul id="reminderList" class="reminder-list">
+            <!-- injected -->
+          </ul>
+        </div>
+      </section>
+
+      <!-- CHATBOT -->
+      <section id="chat" class="page">
+        <div class="card chat-card">
+          <h2>Mock AI Chatbot</h2>
+          <div class="chat-window" id="chatWindow">
+            <!-- messages -->
+          </div>
+
+          <div class="chat-input">
+            <input id="chatText" placeholder="Ask the assistant (demo only)..." />
+            <button id="chatSend" class="btn primary">Send</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- small footer for mobiles -->
+  <footer class="footer-muted">
+    <div class="muted tiny">AI Clinic — Demo (Not medical advice)</div>
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
